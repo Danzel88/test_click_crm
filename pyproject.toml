@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "crm"
+version = "0.1.0"
+description = ""
+authors = ["Danzel88 <gecnepago@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.67.0"
+uvicorn = "^0.14.0"
+python-dotenv = "^0.18.0"
+SQLAlchemy = "^1.4.22"
+psycopg2-binary = "^2.9.1"
+alembic = "^1.6.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
