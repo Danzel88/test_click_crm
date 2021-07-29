@@ -18,3 +18,7 @@ class CreateStatus(BaseStatus):
 
 class UpdateStatus(BaseStatus):
     pass
+
+
+class GetStatus(BaseStatus):
+    status_name: str

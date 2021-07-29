@@ -18,3 +18,7 @@ class CreateRequestsType(BaseRequestsType):
 
 class UpdateRequestsType(BaseRequestsType):
     pass
+
+
+class GetRt(BaseModel):
+    requests_type_name: str

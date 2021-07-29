@@ -1,24 +1,25 @@
 from typing import List
 from fastapi import Depends, APIRouter, Response, status
+
+from ..models.person import ClientOut, ClientUpdate, ClientCreate
 from ..services.client import ClientService
-from ..models.client import Client, CreateClient, UpdateClient
 
 router = APIRouter(prefix="/client")
 
 
-@router.get('/', response_model=List[Client])
+@router.get('/', response_model=List[ClientOut])
 def get_client(service: ClientService = Depends()):
     return service.get_list()
 
 
-@router.post('/', response_model=Client)
-def create_client(client_data: CreateClient, service: ClientService = Depends()):
+@router.post('/', response_model=ClientOut)
+def create_client(client_data: ClientCreate, service: ClientService = Depends()):
     return service.create_client(client_data)
 
 
-@router.put('/{client_id}', response_model=Client)
+@router.put('/{client_id}', response_model=ClientOut)
 def update_client(client_id: int,
-                  client_data: UpdateClient,
+                  client_data: ClientUpdate,
                   service: ClientService = Depends()):
     return service.update_client(client_id, client_data)
 

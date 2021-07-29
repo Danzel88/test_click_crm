@@ -1,7 +1,10 @@
-from typing import List, Optional
+from typing import List
 from fastapi import Depends, APIRouter, Response, status
+
+
 from ..services.client_request import ClientRequestService
-from ..models.client_request import ClientRequest, UpdateClientRequest, CreateClientRequest
+
+from ..models.client_request import ClientRequest, UpdateClientRequest, CreateClientRequest, GetClientRequests
 
 router = APIRouter(prefix="/client_request")
 
@@ -12,8 +15,8 @@ def get_client_request(service: ClientRequestService = Depends()):
 
 
 @router.post('/', response_model=ClientRequest)
-def create_client_request(request_data: CreateClientRequest, service: ClientRequestService =
-                          Depends()):
+def create_client_request(request_data: CreateClientRequest,
+                          service: ClientRequestService = Depends()):
     return service.create_client_request(request_data)
 
 

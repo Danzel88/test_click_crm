@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -6,7 +6,7 @@ from starlette import status
 
 from .. import tables
 from ..database import get_session
-from ..models.staff import Description, CreateStaff, UpdateStaff
+from ..models.person import StaffUpdate
 
 
 class StaffService:
@@ -19,22 +19,12 @@ class StaffService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         return staff
 
-    def get_list(self, description: Optional[Description] = None) \
-            -> List[tables.Staff]:
+    def get_list(self) -> List[tables.Staff]:
         query = self.session.query(tables.Staff)
-        if description:
-            query = query.filter_by(description=description)
         staff = query.all()
         return staff
 
-    def create_staff(self, staff_data: CreateStaff) -> tables.Staff:
-        staff = tables.Staff(**staff_data.dict())
-        self.session.add(staff)
-        self.session.commit()
-        return staff
-
-    def update_staff(self, staff_id: int, staff_data: UpdateStaff) \
-            -> tables.Staff:
+    def update_staff(self, staff_id: int, staff_data: StaffUpdate) -> tables.Staff:
         staff = self._get(staff_id)
         for field, value in staff_data:
             setattr(staff, field, value)

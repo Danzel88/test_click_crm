@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 from datetime import date
 
@@ -23,3 +25,10 @@ class CreateClientRequest(BaseClientRequests):
 
 class UpdateClientRequest(BaseClientRequests):
     pass
+
+
+class GetClientRequests(BaseModel):
+    client_requests_subject: Optional[str]
+    client_name: Optional[str]
+    requests_type: Optional[str]
+    status_name: Optional[str]
