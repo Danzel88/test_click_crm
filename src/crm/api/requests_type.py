@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Response, status
 from ..models.requests_type import RequestsType, CreateRequestsType, UpdateRequestsType
 from ..services.requests_type import RequestsTypeService
 
-router = APIRouter(prefix='/requests_type')
+router = APIRouter(prefix='/requests_type', tags=['Processing a list of request types'])
 
 
 @router.get('/', response_model=List[RequestsType])

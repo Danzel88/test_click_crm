@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import Depends, APIRouter, Response, status
 
 
@@ -6,12 +6,13 @@ from ..services.client_request import ClientRequestService
 
 from ..models.client_request import ClientRequest, UpdateClientRequest, CreateClientRequest, GetClientRequests
 
-router = APIRouter(prefix="/client_request")
+router = APIRouter(prefix="/client_request", tags=['Processing requests of clients'])
 
 
 @router.get('/', response_model=List[ClientRequest])
-def get_client_request(service: ClientRequestService = Depends()):
-    return service.get_list()
+def get_client_request(service: ClientRequestService = Depends(),
+                       filters: Optional[str] = None):
+    return service.get_list(filters)
 
 
 @router.post('/', response_model=ClientRequest)

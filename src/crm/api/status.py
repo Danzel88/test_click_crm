@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Response, status
 from ..models.status import Status, CreateStatus, UpdateStatus
 from ..services.status import StatusService
 
-router = APIRouter(prefix='/status')
+router = APIRouter(prefix='/status', tags=['Processing a list of status'])
 
 
 @router.get('/', response_model=List[Status])

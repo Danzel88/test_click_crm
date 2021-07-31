@@ -3,7 +3,9 @@ from sqlalchemy.orm import sessionmaker
 
 from crm.settings import setting
 
-engine = create_engine(setting.database_url)
+engine = create_engine(setting.database_url,
+                       # echo=True,
+                       )
 
 
 Session = sessionmaker(

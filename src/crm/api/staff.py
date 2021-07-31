@@ -6,7 +6,8 @@ from ..services.staff import StaffService
 from ..models.person import StaffOut
 
 
-router = APIRouter(prefix="/staff")
+router = APIRouter(prefix="/staff",
+                   tags=['Receiving, update and deleting employee entity'])
 
 
 @router.get('/', response_model=List[StaffOut])

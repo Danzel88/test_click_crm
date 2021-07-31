@@ -1,4 +1,5 @@
-from typing import List
+from datetime import datetime
+from typing import List, Optional, Union
 
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -9,6 +10,11 @@ from crm.models.client_request import UpdateClientRequest, CreateClientRequest
 
 
 class ClientRequestService:
+    # @classmethod
+    # def get_filtered_data(cls, session: Session = Depends(get_session),
+    #                       filter_data: Optional[str] = None):
+    #     subject = session.query(tables.ClientRequests)
+
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
 
@@ -19,23 +25,22 @@ class ClientRequestService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         return client_request_id
 
-    def get_all_subject(self):
-        list_subject = self.session.query(tables.ClientRequests.subject).all()
-        filter_fields = [i[0] for i in list_subject]
-        return filter_fields
-
-    def get_list(self) -> List[tables.ClientRequests]:
-        # query = self.session.query(tables.ClientRequests.subject,
-        #                            tables.Client.name,
-        #                            tables.RequestsType.name,
-        #                            tables.Status.name)\
-        #                             .join(tables.Client)\
-        #                             .join(tables.RequestsType)\
-        #                             .join(tables.Status)
+    def get_list(self, filterable_value: Optional[Union[str, datetime]] = None) -> List:
         query = self.session.query(tables.ClientRequests)
-        print(query)
+        subjects = [subj[0] for subj in self.session\
+                            .query(tables.ClientRequests.subject)]
+        # status = [stat[0] for stat in self.session\
+        #                     .query(tables.ClientRequests.status_id,
+        #                            tables.Status.name)\
+        #                     .join(tables.Status)]
+
+        if filterable_value in subjects:
+            query = self.session.query(tables.ClientRequests)\
+                .filter_by(subject=filterable_value)
+        else:
+            query = self.session.query(tables.ClientRequests) \
+                .filter_by(status_id=filterable_value)
         client_request = query.all()
-        print(client_request)
         return client_request
 
     def create_client_request(self, client_data: CreateClientRequest) \

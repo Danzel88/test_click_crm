@@ -5,7 +5,7 @@ from ..models.person import StaffCreate, StaffOut
 from ..models.auth import Token
 from ..services.auth import AuthService, get_current_user
 
-router = APIRouter(prefix='/auth')
+router = APIRouter(prefix='/auth', tags=['Authenticate'])
 
 
 @router.post('/sign-up', response_model=Token,

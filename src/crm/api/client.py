@@ -4,7 +4,7 @@ from fastapi import Depends, APIRouter, Response, status
 from ..models.person import ClientOut, ClientUpdate, ClientCreate
 from ..services.client import ClientService
 
-router = APIRouter(prefix="/client")
+router = APIRouter(prefix="/client", tags=['Processing client entity'])
 
 
 @router.get('/', response_model=List[ClientOut])
