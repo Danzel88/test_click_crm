@@ -11,7 +11,6 @@ engine = create_engine(setting.database_url,
 Session = sessionmaker(
     engine,
     autocommit=False,
-    # future=False,
     autoflush=False)
 
 

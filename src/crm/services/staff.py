@@ -1,5 +1,5 @@
 from typing import List
-
+from passlib.hash import bcrypt
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
@@ -10,6 +10,10 @@ from ..models.person import StaffUpdate
 
 
 class StaffService:
+    @classmethod
+    def hash_password(cls, password: str) -> str:
+        return bcrypt.hash(password)
+
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
 
@@ -26,8 +30,11 @@ class StaffService:
 
     def update_staff(self, staff_id: int, staff_data: StaffUpdate) -> tables.Staff:
         staff = self._get(staff_id)
-        for field, value in staff_data:
-            setattr(staff, field, value)
+        staff.name = staff_data.name
+        staff.email = staff_data.email
+        staff.phone = staff_data.phone
+        staff.username = staff_data.username
+        staff.password_hash = self.hash_password(staff_data.password)
         self.session.commit()
         return staff
 

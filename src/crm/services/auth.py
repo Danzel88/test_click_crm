@@ -15,7 +15,7 @@ from ..models.auth import Token
 from ..settings import setting
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in')
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)) -> StaffOut:
@@ -41,7 +41,6 @@ class AuthService:
         try:
             payload = jwt.decode(token, setting.jwt_secret,
                                  algorithms=[setting.jwt_algorithm])
-            print(payload)
         except JWTError:
             raise exception from None
 
@@ -103,7 +102,6 @@ class AuthService:
             raise exception
 
         if not self.verify_password(password, staff.password_hash):
-            print("NOR VERIFY")
             raise exception
 
         return self.create_token(staff)

@@ -29,15 +29,15 @@ class ClientService:
         self.session.commit()
         return client
 
-    def update_client(self, staff_id: int, client_data: ClientUpdate) -> tables.Client:
-        client = self._get(staff_id)
+    def update_client(self, client_id: int, client_data: ClientUpdate) -> tables.Client:
+        client = self._get(client_id)
         for field, value in client_data:
             setattr(client, field, value)
         self.session.commit()
         return client
 
-    def delete_client(self, staff_id: int, ):
-        client = self._get(staff_id)
+    def delete_client(self, client_id: int):
+        client = self._get(client_id)
         self.session.delete(client)
         self.session.commit()
 

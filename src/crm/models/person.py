@@ -30,9 +30,9 @@ class StaffCreate(Person):
     password: str
 
 
-class ClientUpdate(ClientCreate):
+class ClientUpdate(Person):
     pass
 
 
 class StaffUpdate(Person):
-    pass
+    password: str
