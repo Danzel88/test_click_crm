@@ -2,7 +2,6 @@ from aiogram import Bot, Dispatcher, types
 
 from bot.config import API_TOKEN
 from .answers import Answers
-from .services import check_request_id
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
