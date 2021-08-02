@@ -24,6 +24,7 @@ class Client(Base):
     phone = sa.Column(sa.Numeric(30))
     username = sa.Column(sa.String, unique=True, nullable=False)
     password = sa.Column(sa.String)
+    tg_id = sa.Column(sa.Integer)
 
 
 class ClientRequests(Base):

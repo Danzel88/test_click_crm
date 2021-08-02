@@ -10,6 +10,7 @@ class Person(BaseModel):
 
 class ClientOut(Person):
     id: int
+    tg_id: int
 
     class Config:
         orm_mode = True
@@ -24,6 +25,7 @@ class StaffOut(Person):
 
 class ClientCreate(Person):
     password: str
+    tg_id: int
 
 
 class StaffCreate(Person):
@@ -31,7 +33,7 @@ class StaffCreate(Person):
 
 
 class ClientUpdate(Person):
-    pass
+    tg_id: int
 
 
 class StaffUpdate(Person):
